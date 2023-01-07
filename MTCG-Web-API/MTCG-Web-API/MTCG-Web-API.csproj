@@ -5,5 +5,9 @@
     <RootNamespace>MTCG_Web_API</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Users\" />
+  </ItemGroup>
+
 
 </Project>
