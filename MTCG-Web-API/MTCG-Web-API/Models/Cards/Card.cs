@@ -18,19 +18,11 @@
         protected ElementType element;
         protected CardType type;
 
-        public int CardId { get; set; }
-        public string CardName { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public float Damage { get; set; }
         public ElementType Element { get; set; }
         public CardType Type { get; set; }
-        public Card(int id, string name, int damage, ElementType elementtype, CardType cardtype)
-        {
-            this.CardId = id;
-            this.CardName = name;
-            this.Damage = damage;
-            this.Element = elementtype;
-            this.Type = cardtype;
-        }
 
         public abstract bool isProtectedVsMonster(CardType opponentType);
 
