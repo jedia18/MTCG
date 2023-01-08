@@ -8,16 +8,6 @@ namespace MTCG_Web_API.Authentication
 {
     public class PasswordHandler
     {
-        public void Login()
-        {
-
-        }
-
-        public void Register()
-        {
-
-        }
-
         public string HashPassword(string password)
         {
             // SHA256 : Secure Hash Algorithem to 256

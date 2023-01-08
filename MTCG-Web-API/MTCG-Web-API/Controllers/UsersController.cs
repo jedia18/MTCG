@@ -34,8 +34,6 @@ namespace MTCG_Web_API.Controllers
             _environment = environment;
         }
 
-        //user_id as ""UserId"",
-
         [HttpGet]
         public JsonResult Get()
         {
@@ -49,7 +47,7 @@ namespace MTCG_Web_API.Controllers
 
             // Getting data into the data table object
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("ConnString");
             NpgsqlDataReader myReader;
             using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
             {
@@ -77,7 +75,7 @@ namespace MTCG_Web_API.Controllers
 
             // Getting data into the data table object 
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("ConnString");
             NpgsqlDataReader myReader;
             if (user.Bio == null)
             {
@@ -94,6 +92,7 @@ namespace MTCG_Web_API.Controllers
                 {
                     myCommand.Parameters.AddWithValue("@UserName", user.UserName);
                     myCommand.Parameters.AddWithValue("@Password", hashedpassword);
+                    //myCommand.Parameters.AddWithValue("@Password", user.Password);
                     myCommand.Parameters.AddWithValue("@Coins", Convert.ToInt32(user.Coins));
                     myCommand.Parameters.AddWithValue("@Bio", user.Bio);
                     try
@@ -112,7 +111,6 @@ namespace MTCG_Web_API.Controllers
                         }
                         
                     }
-                    
                     table.Load(myReader);
 
                     myReader.Close();
@@ -137,7 +135,7 @@ namespace MTCG_Web_API.Controllers
 
             // Getting data into the data table object
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("ConnString");
             NpgsqlDataReader myReader;
             using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
             {
@@ -170,7 +168,7 @@ namespace MTCG_Web_API.Controllers
 
             // Getting data into the data table object
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("ConnString");
             NpgsqlDataReader myReader;
             using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
             {
