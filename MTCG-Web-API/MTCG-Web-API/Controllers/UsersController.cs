@@ -8,8 +8,10 @@ using System.Data;
 using System.IO;
 using System.Numerics;
 using System;
-using MTCG_Web_API.Authentication;
 using MTCG_Web_API.Models.Users;
+using MTCG_Web_API.Authentication;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MTCG_Web_API.Controllers
 {
@@ -81,13 +83,17 @@ namespace MTCG_Web_API.Controllers
             {
                 user.Bio = "null";
             }
+
+            // make a hasched password from the password which user gives
+            string hashedpassword = HashPassword(user.Password);
+
             using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
             {
                 myCon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, myCon))
                 {
                     myCommand.Parameters.AddWithValue("@UserName", user.UserName);
-                    myCommand.Parameters.AddWithValue("@Password", user.Password);
+                    myCommand.Parameters.AddWithValue("@Password", hashedpassword);
                     myCommand.Parameters.AddWithValue("@Coins", Convert.ToInt32(user.Coins));
                     myCommand.Parameters.AddWithValue("@Bio", user.Bio);
                     try
@@ -96,7 +102,15 @@ namespace MTCG_Web_API.Controllers
                     }
                     catch (Exception ex)
                     {
-                        return new JsonResult(ex);
+                        if (ex.Message == "23505: doppelter Schlüsselwert verletzt Unique-Constraint »users_pkey«")
+                        {
+                            return new JsonResult("User is already exist!");
+                        }
+                        else
+                        {
+                            return new JsonResult(ex);
+                        }
+                        
                     }
                     
                     table.Load(myReader);
@@ -198,6 +212,16 @@ namespace MTCG_Web_API.Controllers
 
                 return new JsonResult("anonymous.png");
             }
+        }
+
+        public string HashPassword(string password)
+        {
+            // SHA256 : Secure Hash Algorithem to 256
+            SHA256 hash = SHA256.Create();  // create an Instance of this class
+            var passwordBytes = Encoding.Default.GetBytes(password); // Change password string to an arry of bytes to use in computeHash() method
+            var hashedpassword = hash.ComputeHash(passwordBytes);  // this method only take an array of beytes and hash it and it returns an array of bytes
+            string hashedPasswordString = BitConverter.ToString(hashedpassword).Replace("-", "");
+            return hashedPasswordString;
         }
     }
 }
