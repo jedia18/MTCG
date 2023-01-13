@@ -81,9 +81,11 @@ namespace MTCG_Web_API.Controllers
             {
                 user.Bio = "null";
             }
+            user.Coins = 20;
 
             // make a hasched password from the password which user gives
-            string hashedpassword = HashPassword(user.Password);
+            PasswordHandler passwordhandler = new PasswordHandler();
+            string hashedpassword = passwordhandler.HashPassword(user.Password);
 
             using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
             {
@@ -92,7 +94,6 @@ namespace MTCG_Web_API.Controllers
                 {
                     myCommand.Parameters.AddWithValue("@UserName", user.UserName);
                     myCommand.Parameters.AddWithValue("@Password", hashedpassword);
-                    //myCommand.Parameters.AddWithValue("@Password", user.Password);
                     myCommand.Parameters.AddWithValue("@Coins", Convert.ToInt32(user.Coins));
                     myCommand.Parameters.AddWithValue("@Bio", user.Bio);
                     try
@@ -137,12 +138,12 @@ namespace MTCG_Web_API.Controllers
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ConnString");
             NpgsqlDataReader myReader;
+
             using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
             {
                 myCon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, myCon))
-                {
-                    //myCommand.Parameters.AddWithValue("@PlayerId", pla.UserId);
+                {              
                     myCommand.Parameters.AddWithValue("@UserName", user.UserName);
                     myCommand.Parameters.AddWithValue("@Password", user.Password);
                     myCommand.Parameters.AddWithValue("@Coins", Convert.ToInt32(user.Coins));
@@ -210,16 +211,6 @@ namespace MTCG_Web_API.Controllers
 
                 return new JsonResult("anonymous.png");
             }
-        }
-
-        public string HashPassword(string password)
-        {
-            // SHA256 : Secure Hash Algorithem to 256
-            SHA256 hash = SHA256.Create();  // create an Instance of this class
-            var passwordBytes = Encoding.Default.GetBytes(password); // Change password string to an arry of bytes to use in computeHash() method
-            var hashedpassword = hash.ComputeHash(passwordBytes);  // this method only take an array of beytes and hash it and it returns an array of bytes
-            string hashedPasswordString = BitConverter.ToString(hashedpassword).Replace("-", "");
-            return hashedPasswordString;
         }
     }
 }
