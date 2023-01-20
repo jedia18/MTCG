@@ -10,7 +10,7 @@ using System.Text;
 namespace MTCG
 {
     /// <summary>This class provides event arguments for an HTTP server.</summary>
-    public class HttpSvrEventArgs: EventArgs
+    public class HttpSvrEventArgs : EventArgs
     {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // private members                                                                                          //
@@ -27,7 +27,7 @@ namespace MTCG
 
         /// <summary>Creates a new instance of this class.</summary>
         public HttpSvrEventArgs()
-        {}
+        { }
 
 
         /// <summary>Creates a new instance of this class.</summary>
@@ -52,7 +52,7 @@ namespace MTCG
             //Once the iteration is complete, it assigns the headers list to the Headers property.
             for (int i = 0; i < lines.Length; i++)
             {
-                if(i == 0)
+                if (i == 0)
                 {
                     string[] inq = lines[0].Split(" ");
                     Method = inq[0];
@@ -60,25 +60,25 @@ namespace MTCG
                     Path = inq[1];
                     //Console.WriteLine("--------------" + Path + "----------------");
                 }
-                else if(inheaders)
+                else if (inheaders)
                 {
-                    if(string.IsNullOrWhiteSpace(lines[i]))
+                    if (string.IsNullOrWhiteSpace(lines[i]))
                     {
                         inheaders = false;
                     }
-                    else 
-                    { 
+                    else
+                    {
                         headers.Add(new HttpHeader(lines[i]));
                         //Console.WriteLine("§§§§§§§§§§" + lines[i] + "§§§§§§§§§§§§§");
                     }
                 }
                 else
                 {
-                    Payload += (lines[i] + "\r\n");
+                    Payload += lines[i] + "\r\n";
                 }
 
                 Headers = headers.ToArray();
-            
+
             }
             //string aa = "curl\r\n-X\r\nGET\r\nhttp://localhost:12000/messages\r\n--header\r\n\"Content-Type:\r\ntext/plain\"\r\n-d\r\n\"\"";
             //Console.WriteLine(aa);
@@ -135,7 +135,7 @@ namespace MTCG
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // public methods                                                                                           //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         /// <summary>Returns a reply to the HTTP request.</summary>
         /// <param name="status">Status code.</param>
         /// <param name="payload">Payload.</param>
@@ -143,7 +143,7 @@ namespace MTCG
         {
             string data;
 
-            switch(status)
+            switch (status)
             {                                                                   // create response status string from code
                 case 200:
                     data = "HTTP/1.1 200 OK\n";
@@ -159,7 +159,7 @@ namespace MTCG
                     break;
             }
 
-            if(string.IsNullOrEmpty(payload))
+            if (string.IsNullOrEmpty(payload))
             {                                                                   // set Content-Length to 0 for empty content
                 data += "Content-Length: 0\n";
             }

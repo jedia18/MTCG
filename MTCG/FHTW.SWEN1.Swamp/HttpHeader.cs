@@ -1,7 +1,5 @@
 ﻿using System;
 
-
-
 namespace MTCG
 {
     /// <summary>This class represents a HTTP header.</summary>
@@ -35,10 +33,8 @@ namespace MTCG
                 //Console.WriteLine("--------------" + Value + "------------------");
 
             }
-            catch (Exception) {}
+            catch (Exception) { }
         }
-
-
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // public properties                                                                                        //

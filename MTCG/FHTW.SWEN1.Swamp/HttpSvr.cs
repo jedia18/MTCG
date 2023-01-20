@@ -2,8 +2,6 @@
 using System.Net.Sockets;
 using System.Text;
 
-
-
 namespace MTCG
 {
     /// <summary>A delegate that represents a method that will handle an incoming HTTP message event.</summary>
@@ -19,7 +17,7 @@ namespace MTCG
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // private members                                                                                          //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         /// <summary>TCP listener instance.</summary>
         private TcpListener _Listener;
 
@@ -37,7 +35,7 @@ namespace MTCG
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // public properties                                                                                           //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         /// <summary>Active flag. Determines if the server is still running.</summary>
         public bool Active { get; set; }
 
@@ -59,14 +57,14 @@ namespace MTCG
             int n;
             string data;
 
-            while(Active)
+            while (Active)
             {
                 TcpClient client = _Listener.AcceptTcpClient();                 // wait for a client to connect
 
                 NetworkStream stream = client.GetStream();                      // get the client stream
-                
+
                 data = "";
-                while(stream.DataAvailable || (data == ""))
+                while (stream.DataAvailable || data == "")
                 {                                                               // read and decode stream
                     n = stream.Read(buf, 0, buf.Length);
                     data += Encoding.ASCII.GetString(buf, 0, n);

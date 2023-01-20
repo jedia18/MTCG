@@ -1,4 +1,5 @@
 using Moq;
+using MTCG.HttpSvr;
 using NUnit.Framework;
 using System.IO;
 using System.Net.Http;
