@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTCG", "FHTW.SWEN1.Swamp\MTCG.csproj", "{223542A1-A0E2-4888-8CDD-26F52E6D6328}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTCG.Tests", "FHTW.SWEN1.Swamp.Tests\MTCG.Tests.csproj", "{B35DAEF9-E71F-4080-8C64-2A575AE9015F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{223542A1-A0E2-4888-8CDD-26F52E6D6328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{223542A1-A0E2-4888-8CDD-26F52E6D6328}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{223542A1-A0E2-4888-8CDD-26F52E6D6328}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{223542A1-A0E2-4888-8CDD-26F52E6D6328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B35DAEF9-E71F-4080-8C64-2A575AE9015F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35DAEF9-E71F-4080-8C64-2A575AE9015F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35DAEF9-E71F-4080-8C64-2A575AE9015F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35DAEF9-E71F-4080-8C64-2A575AE9015F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B572C1D-4EEF-4C8B-A946-1DA69442A3E4}
+	EndGlobalSection
+EndGlobal
