@@ -1,9 +1,5 @@
 
-rem Get all messages
-curl -X GET http://localhost:12000/message --header "Content-Type: text/plain" -d ""
 
-rem Create messages
-curl -X POST http://localhost:10001/user --header "Content-Type: application/json" -d "{\"Username\":\"kienboec\", \"Password\":\"daniel\"}"
 
 REM --------------------------------------------------
 echo 1) Create Users (Registration)

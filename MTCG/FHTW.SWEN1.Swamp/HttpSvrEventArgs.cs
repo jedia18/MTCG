@@ -56,9 +56,9 @@ namespace MTCG
                 {
                     string[] inq = lines[0].Split(" ");
                     Method = inq[0];
-                    Console.WriteLine("************" + Method + "****************");
+                    //Console.WriteLine("************" + Method + "****************");
                     Path = inq[1];
-                    Console.WriteLine("--------------" + Path + "----------------");
+                    //Console.WriteLine("--------------" + Path + "----------------");
                 }
                 else if(inheaders)
                 {

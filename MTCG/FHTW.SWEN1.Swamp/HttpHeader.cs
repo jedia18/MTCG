@@ -30,9 +30,9 @@ namespace MTCG
             {
                 int n = header.IndexOf(':');
                 Name = header.Substring(0, n).Trim();
-                //Console.WriteLine("**************" + Name + "*******************************");
+                //Console.WriteLine("**************" + Name + "******************");
                 Value = header.Substring(n + 1).Trim();
-                //Console.WriteLine("------------------" + Value + "------------------");
+                //Console.WriteLine("--------------" + Value + "------------------");
 
             }
             catch (Exception) {}

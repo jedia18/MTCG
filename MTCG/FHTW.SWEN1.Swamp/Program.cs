@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using MTCG.Controller;
 using Newtonsoft.Json.Linq;
 using Npgsql;
 using System;
@@ -23,7 +24,7 @@ namespace MTCG
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>Database connection.</summary>
-        private static IDbConnection _Cn;
+        public static IDbConnection _Cn;
 
 
 
@@ -68,44 +69,44 @@ namespace MTCG
         /// <summary>Reads messages from database.</summary>
         /// <param name="msg">Message number.</param>
         /// <returns>Message text.</returns>
-        
+
         //private static string _ReadMessages(int msg = -1)
         //{
-            //NpgsqlCommand cmd = (NpgsqlCommand)_Cn.CreateCommand();
-            ////IDbCommand cmd = _Cn.CreateCommand();                       // create database command, insert message into database
-            //cmd.CommandText = "CREATE TABLE IF NOT EXISTS messages (id SERIAL PRIMARY KEY, data TEXT)";
-            //cmd.ExecuteNonQuery();
-            //cmd.Dispose();
+        //NpgsqlCommand cmd = (NpgsqlCommand)_Cn.CreateCommand();
+        ////IDbCommand cmd = _Cn.CreateCommand();                       // create database command, insert message into database
+        //cmd.CommandText = "CREATE TABLE IF NOT EXISTS messages (id SERIAL PRIMARY KEY, data TEXT)";
+        //cmd.ExecuteNonQuery();
+        //cmd.Dispose();
 
-            //cmd = (NpgsqlCommand)_Cn.CreateCommand();
-            //cmd.CommandText = "SELECT id, data FROM messages";
-            //IDbCommand cmd = _Cn.CreateCommand();
-            //cmd.CommandText = "SELECT * FROM MESSAGES";
+        //cmd = (NpgsqlCommand)_Cn.CreateCommand();
+        //cmd.CommandText = "SELECT id, data FROM messages";
+        //IDbCommand cmd = _Cn.CreateCommand();
+        //cmd.CommandText = "SELECT * FROM MESSAGES";
 
-            //if (msg >= 0)
-            //{
-            //    cmd.CommandText += " WHERE id = :id";
-            //    NpgsqlParameter p = cmd.CreateParameter();
-            //    p.ParameterName = ":id";
-            //    p.Value = msg;
-            //    cmd.Parameters.Add(p);
-            //}
+        //if (msg >= 0)
+        //{
+        //    cmd.CommandText += " WHERE id = :id";
+        //    NpgsqlParameter p = cmd.CreateParameter();
+        //    p.ParameterName = ":id";
+        //    p.Value = msg;
+        //    cmd.Parameters.Add(p);
+        //}
 
-            //NpgsqlDataReader re = cmd.ExecuteReader();
-            //IDataReader re = cmd.ExecuteReader();
+        //NpgsqlDataReader re = cmd.ExecuteReader();
+        //IDataReader re = cmd.ExecuteReader();
 
-            //StringBuilder rval = new StringBuilder();
-            //while (re.Read())
-            //{
-            //    rval.Append("[");
-            //    rval.Append(re.GetInt32(0));
-            //    rval.Append("] ");
-            //    rval.AppendLine(re.GetString(1));
-            //}
+        //StringBuilder rval = new StringBuilder();
+        //while (re.Read())
+        //{
+        //    rval.Append("[");
+        //    rval.Append(re.GetInt32(0));
+        //    rval.Append("] ");
+        //    rval.AppendLine(re.GetString(1));
+        //}
 
-            //re.Close();
-            //re.Dispose();
-            //cmd.Dispose();
+        //re.Close();
+        //re.Dispose();
+        //cmd.Dispose();
 
         //    return rval.ToString();
         //}
@@ -137,101 +138,19 @@ namespace MTCG
             //Console.ForegroundColor = ConsoleColor.White;
 
             //Then the code checks if the path of the request is "/messages".
+
             
             if (e.Path == "/users")
             {
-                //If the path is "/messages" and the method is "POST", the code will insert a new message into the
-                //database using an IDbCommand object, with the message data taken from the payload of the request. // no message id provided
-                
-                if (e.Method == "POST")                                         // POST: add new message
-                {
-                    NpgsqlCommand cmd = (NpgsqlCommand)_Cn.CreateCommand();
+                UserController.AddUser(e, (NpgsqlConnection)_Cn);           // AddUser method to handle User
 
-                    // create database command, insert messages into database
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, username VARCHAR(255) UNIQUE, password VARCHAR(255))";
-                    cmd.ExecuteNonQuery();
-
-                    // insert message into database
-                    cmd.CommandText = "INSERT INTO users (username, password) VALUES (@username, @password) RETURNING id";
-                    
-                    JObject jObject = JObject.Parse(e.Payload);
-                    string username = (string)jObject["Username"];
-                    string password = (string)jObject["Password"];
-
-                    IDataParameter p1 = cmd.CreateParameter();          // make and bind parameter for username
-                    p1.ParameterName = ":username";
-                    p1.Value = username;
-                    cmd.Parameters.Add(p1);
-
-                    IDataParameter p2 = cmd.CreateParameter();          // make and bind parameter for password
-                    p2.ParameterName = ":password";
-                    p2.Value = password;
-                    cmd.Parameters.Add(p2);
-
-                    Console.WriteLine("Username: " + username);
-                    Console.WriteLine("Password: " + password);
-
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (NpgsqlException ex)
-                    {
-                        Console.WriteLine("Error: The username already exists.");
-                        // To Do : make the catch correctly
-                        //if (ex.Code == "23505")
-                        //{
-                        //    Console.WriteLine("Error: The username already exists.");
-                        //    e.Reply(400, "Error: The username already exists.");
-                        //}
-                        //else
-                        //{
-                        //    throw;
-                        //}
-                    }
-
-
-                    //The code then retrieves the auto-incremented ID of the new message and sends a response with 
-                    //a status code of 200 and the ID as the content.
-                    //cmd = (NpgsqlCommand)_Cn.CreateCommand();                                  // read autoincremented message ID
-                    cmd.CommandText = "SELECT CURRVAL('users_id_seq')";
-                    int id = Convert.ToInt32(cmd.ExecuteScalar());              // put ID into variable
-                    cmd.Dispose();
-
-                    Console.WriteLine("Saved message: \"{0}\" as {1}", e.Payload.Replace("\n", "").Replace("\r", ""), id);
-                    e.Reply(200, id.ToString());                                // create reply
-                }
-
-
-                //if (e.Method == "POST")
-                //{
-                //    using (NpgsqlCommand cmd = connection.CreateCommand())
-                //    {
-                //        cmd.CommandText = "INSERT INTO messages (data) VALUES (@data)";
-                //        cmd.Parameters.AddWithValue("@data", e.Payload);
-                //        cmd.ExecuteNonQuery();
-                //    }
-
-                //    using (NpgsqlCommand cmd = connection.CreateCommand())
-                //    {
-                //        cmd.CommandText = "SELECT currval(pg_get_serial_sequence('messages','id'))";
-                //        int id = Convert.ToInt32(cmd.ExecuteScalar());
-                //        Console.WriteLine("Saved message: \"{0}\" as {1}", e.Payload.Replace("\n", "").Replace("\r", ""), id);
-                //        e.Reply(200, id.ToString());
-                //    }
-                //}
-
-
-
-
-
-                //If the path is "/messages" and the method is "GET", the code will get all the messages from the 
-                //database and send a response with a status code of 200 and the messages as the content.
-                else if (e.Method == "GET")
-            {
-                Console.WriteLine("Showed all messages.");
-                //e.Reply(200, _ReadMessages());
-            }
+                NpgsqlCommand cmd = (NpgsqlCommand)_Cn.CreateCommand();     // The code then retrieves the auto-incremented ID
+                cmd.CommandText = "SELECT CURRVAL('users_id_seq')";         // read autoincremented message ID
+                int id = Convert.ToInt32(cmd.ExecuteScalar());              // put ID into variable
+                cmd.Dispose();
+                //Console.WriteLine("Saved message: \"{0}\" as {1}", e.Payload.Replace("\n", "").Replace("\r", ""), id);
+                e.Reply(200, id.ToString());                                // create reply
+              
             }
             //If the path starts with "/messages/", the code will try to parse the message ID from the path, and if it is 
             //a valid ID, it will check if the method is "GET" or "PUT".
