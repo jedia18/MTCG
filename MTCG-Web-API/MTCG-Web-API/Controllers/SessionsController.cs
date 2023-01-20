@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -7,12 +6,6 @@ using MTCG_Web_API.Authentication;
 using MTCG_Web_API.Models.Users;
 using Npgsql;
 using System.Data;
-using System;
-using System.Xml.Linq;
-using System.Reflection.Metadata;
-using System.Reflection.PortableExecutable;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace MTCG_Web_API.Controllers
 {

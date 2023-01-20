@@ -1,9 +1,15 @@
-﻿namespace MTCG_Web_API.Models.Cards
+﻿
+using MTCG_Web_API.Models.Cards;
+using Npgsql;
+
+namespace MTCG_Web_API.Models.Cards
+
 {
     /// <summary>
     /// Making  spell cards as enum
     /// </summary>
-    public enum ElementType {Normal = 0, Water = 1, Fire = 2}
+    //public enum ElementType {Normal = 0, Water = 1, Fire = 2}
+
 
     /// <summary>
     /// Making different card types as enum
@@ -11,17 +17,18 @@
     public enum CardType {Spell = 0, Goblin = 1, Dragon = 2, Wizard = 3,
         Ork = 4, Knight = 5, Kraken= 6, Elf = 7, Troll = 8}
 
-
     public abstract class Card
     {
-        protected float damage;
-        protected ElementType element;
-        protected CardType type;
+        public string id;
+        public string name;
+        public float damage;
+        public string element;
+        public CardType type;
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public float Damage { get; set; }
-        public ElementType Element { get; set; }
+        public string Element { get; set; }
         public CardType Type { get; set; }
 
         public abstract bool isProtectedVsMonster(CardType opponentType);

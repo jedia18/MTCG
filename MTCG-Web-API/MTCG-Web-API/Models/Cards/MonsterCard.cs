@@ -1,15 +1,25 @@
 ﻿using Microsoft.VisualBasic;
 using System.Security.AccessControl;
+using System;
 
 namespace MTCG_Web_API.Models.Cards
 {
     public class MonsterCard : Card
     {
-        public MonsterCard(int damage, ElementType element, CardType type)
+        //public MonsterCard(string name, float damage, string element, CardType type)
+        //{
+        //    this.name = name;
+        //    this.damage = damage;
+        //    this.element = element;
+        //    this.type = type;
+        //}
+
+        public MonsterCard(string id, string name, float damage, string element)
         {
-            this.damage = damage;
-            this.element = element;
-            this.type = type;
+            this.Id = id;
+            this.Name = name;
+            this.Damage = damage;
+            this.Element = element;
         }
         public override double damageEffectivenessCalculation(Card opponentCard)
         {
@@ -21,24 +31,24 @@ namespace MTCG_Web_API.Models.Cards
 
             switch (element)
             {
-                case ElementType.Normal:
-                    if (opponentCard.Element == ElementType.Water)        // normal->water  effective
+                case "Normal":
+                    if (opponentCard.Element == "Water")        // normal->water  effective
                         return 2;
-                    else if (opponentCard.Element == ElementType.Fire)    // fire->normal   not effective
+                    else if (opponentCard.Element == "Fire")    // fire->normal   not effective
                         return 0.5;
 
                     break;
-                case ElementType.Fire:
-                    if (opponentCard.Element == ElementType.Normal)       // fire->normal   effective
+                case "Fire":
+                    if (opponentCard.Element == "Normal")       // fire->normal   effective
                         return 2;
-                    else if (opponentCard.Element == ElementType.Water)   // water->fire    not effective
+                    else if (opponentCard.Element == "Water")   // water->fire    not effective
                         return 0.5;
 
                     break;
-                case ElementType.Water:
-                    if (opponentCard.Element == ElementType.Fire)         // water->fire    effective
+                case "Water":
+                    if (opponentCard.Element == "Fire")         // water->fire    effective
                         return 2;
-                    else if (opponentCard.Element == ElementType.Normal)  // normal->water  not effective
+                    else if (opponentCard.Element == "Normal")  // normal->water  not effective
                         return 0.5;
 
                     break;
@@ -63,7 +73,7 @@ namespace MTCG_Web_API.Models.Cards
                     break;
                 // The FireElves know Dragons since they were little and can evade their attacks
                 case (CardType.Elf):
-                    if (element == ElementType.Fire && opponentType == CardType.Dragon)
+                    if (element == "Fire" && opponentType == CardType.Dragon)
                         return true;
                     break;
             }
