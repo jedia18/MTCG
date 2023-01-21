@@ -1,9 +1,8 @@
 
 
-
 REM --------------------------------------------------
 echo 2) Login Users
-curl -X POST http://localhost:10001/sessions --header "Content-Type: application/json" -d "{\"Username\":\"kienboec\", \"Password\":\"daniel\"}"
+curl -X POST http://localhost:10001/sessions --header "Content-Type: application/json" --header "Authorization: Basic admin-mtcgToken" -d "{\"Username\":\"kienboec\", \"Password\":\"daniel\"}"
 echo.
 curl -X POST http://localhost:10001/sessions --header "Content-Type: application/json" -d "{\"Username\":\"altenhof\", \"Password\":\"markus\"}"
 echo.
@@ -16,7 +15,7 @@ echo.
 echo.
 
 
-curl -X POST http://localhost:12000/message --header "Content-Type: text/plain" -d "Hello World. I'm message number 2."
+curl -X POST http://localhost:10001/message --header "Content-Type: text/plain" -d "Hello World. I'm message number 2."
 curl -X POST http://localhost:12000/message --header "Content-Type: text/plain" -d "Hello World. I'm message number 3."
 
 rem Show first message

@@ -78,15 +78,20 @@ namespace MTCG
                 }
 
                 Headers = headers.ToArray();
+                //for (int j = 0; j < Headers.Length; j++)
+                //{
+                //    Console.WriteLine(Headers[j]);
+                //}
 
             }
-            //string aa = "curl\r\n-X\r\nGET\r\nhttp://localhost:12000/messages\r\n--header\r\n\"Content-Type:\r\ntext/plain\"\r\n-d\r\n\"\"";
-            //Console.WriteLine(aa);
-            //Console.WriteLine("");
-            //string[] dd = aa.Replace("\r\n", "\n").Replace("\r", "\n").Split("\n");
-            //for (int j = 0; j < dd.Length; j++)
+            
+            //for (int j = 0; j < Headers.Length; j++)
             //{
-            //    Console.WriteLine(dd[j]);
+            //    if (Headers[j].Value == "Basic admin-mtcgToken")
+            //    {
+            //        Console.WriteLine(Headers[j].Value);
+            //    }
+                
             //}
         }
 
