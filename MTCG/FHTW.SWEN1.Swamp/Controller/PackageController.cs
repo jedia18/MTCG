@@ -40,7 +40,7 @@ namespace MTCG.Controller
                 //    Console.WriteLine((string)jObject["Name"]);
                 //}
 
-                int i = 0;
+                //int i = 0;
                 //for (i = 0; i < jArray.Count; i++)
                 foreach (JObject jObject in jArray)
                 {
