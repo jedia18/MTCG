@@ -9,13 +9,8 @@ namespace MTCG
 {
     internal class IncomingHandler
     {
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // private static members                                                                                   //
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         /// <summary>Database connection.</summary>
         public static IDbConnection _Cn;
-
 
         /// <summary>Initializes the database connection.</summary>
         public static void InitDb()
@@ -51,6 +46,11 @@ namespace MTCG
             {
                 Console.WriteLine("Hello world");
             }
+
+
+
+
+
             //If the path starts with "/messages/", the code will try to parse the message ID from the path, and if it is 
             //a valid ID, it will check if the method is "GET" or "PUT".
             else if (e.Path.StartsWith("/messages/"))

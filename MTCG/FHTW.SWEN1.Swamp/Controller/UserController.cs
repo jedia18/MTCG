@@ -11,14 +11,13 @@ namespace MTCG.Controller
 {
     internal class UserController
     {
-
+        //If the path is "/users" and the method is "POST", the code will creat the users table in Db and insert some values into the
+        //database, with the values taken from the payload of the request. 
         public static void AddUser(object evt, NpgsqlConnection _Cn)
         {
             HttpSvrEventArgs e = (HttpSvrEventArgs)evt;
 
-            //If the path is "/messages" and the method is "POST", the code will insert a new message into the
-            //database using an IDbCommand object, with the message data taken from the payload of the request. // no message id provided
-            if (e.Method == "POST")                                         // POST: add new message
+            if (e.Method == "POST")                                              // POST: add new message
             {
                 NpgsqlCommand cmd = _Cn.CreateCommand();
 
