@@ -22,7 +22,7 @@ namespace MTCG.Controller
                 NpgsqlCommand cmd = _Cn.CreateCommand();
 
                 // create database command, insert messages into database
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, username VARCHAR(255) UNIQUE, password VARCHAR(255), coins INTEGER, wins INTEGER, defeats INTEGER, draws INTEGER, played INTEGER, Image VARCHAR(255), bio VARCHAR(255))";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, username VARCHAR(255) UNIQUE, password VARCHAR(255), coins INTEGER, wins INTEGER, defeats INTEGER, draws INTEGER, played INTEGER, Image VARCHAR(255), bio VARCHAR(255), token VARCHAR(255))";
                 cmd.ExecuteNonQuery();
 
                 // insert message into database

@@ -139,7 +139,7 @@ namespace MTCG
         /// <summary>Returns a reply to the HTTP request.</summary>
         /// <param name="status">Status code.</param>
         /// <param name="payload">Payload.</param>
-        public virtual void Reply(int status, string payload = null)
+        public virtual void Reply(int status, string payload = null, string value = null)
         {
             string data;
 
