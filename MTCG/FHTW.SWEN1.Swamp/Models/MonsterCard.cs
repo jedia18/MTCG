@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace MTCG.Models
 {
-    internal class MonsterCard : Card
+    public class MonsterCard : Card
     {
         //public MonsterCard(string name, float damage, string element, CardType type)
         //{
@@ -15,66 +15,66 @@ namespace MTCG.Models
         //    this.type = type;
         //}
 
-        public MonsterCard(string id, string name, float damage, string element)
+        public MonsterCard(string id, string name, float damage, string element, string type)
         {
             this.Id = id;
             this.Name = name;
             this.Damage = damage;
             this.Element = element;
+            this.Type = type;
         }
-        public override double damageEffectivenessCalculation(Card opponentCard)
+        public double damageEffectivenessCalculation(Card opponentCard)
         {
             // When the Card is not Spell
-            if (opponentCard.Type != CardType.Spell)
+            if (opponentCard.Type != "Spell")
             {
                 return 1;
             }
 
             switch (element)
             {
-                case "Normal":
-                    if (opponentCard.Element == "Water")        // normal->water  effective
+                case "Regular":
+                    if (opponentCard.Element == "Water")        // regular->water  effective
                         return 2;
-                    else if (opponentCard.Element == "Fire")    // fire->normal   not effective
+                    else if (opponentCard.Element == "Fire")    // fire->regular   not effective
                         return 0.5;
-
                     break;
+
                 case "Fire":
-                    if (opponentCard.Element == "Normal")       // fire->normal   effective
+                    if (opponentCard.Element == "Regular")       // fire->regular   effective
                         return 2;
                     else if (opponentCard.Element == "Water")   // water->fire    not effective
                         return 0.5;
-
                     break;
+
                 case "Water":
                     if (opponentCard.Element == "Fire")         // water->fire    effective
                         return 2;
-                    else if (opponentCard.Element == "Normal")  // normal->water  not effective
+                    else if (opponentCard.Element == "Regular")  // regular->water  not effective
                         return 0.5;
-
                     break;
             }
 
             return 1;
         }
 
-        public override bool isProtectedVsMonster(CardType opponentType)
+        public bool isProtectedVsMonster(string opponentType)
         {
             switch (type)
             {
                 // Goblins are too afraid of Dragons to attack
-                case (CardType.Dragon):
-                    if (opponentType == CardType.Goblin)
+                case ("Dragon"):
+                    if (opponentType == "Goblin")
                         return true;
                     break;
                 // Wizzard can control Orks so they are not able to damage them
-                case (CardType.Wizard):
-                    if (opponentType == CardType.Ork)
+                case ("Wizard"):
+                    if (opponentType == "Ork")
                         return true;
                     break;
                 // The FireElves know Dragons since they were little and can evade their attacks
-                case (CardType.Elf):
-                    if (element == "Fire" && opponentType == CardType.Dragon)
+                case ("Elf"):
+                    if (element == "Fire" && opponentType == "Dragon")
                         return true;
                     break;
             }

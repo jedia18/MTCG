@@ -1,38 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 
 namespace MTCG.Models
 {
-    internal class SpellCard : Card
+    public class SpellCard : Card
     {
         public SpellCard(float damage, string element)
         {
             this.damage = damage;
             this.element = element;
-            this.type = CardType.Spell;
+            this.type = "Spell";
         }
 
-        public override double damageEffectivenessCalculation(Card opponentCard)
+        public double damageEffectivenessCalculation(Card opponentCard)
         {
             // When the Card is not Spell
-            if (opponentCard.Type != CardType.Spell)
+            if (opponentCard.Type != "Spell")
             {
                 return 1;
             }
 
             switch (element)
             {
-                case "Normal":
-                    if (opponentCard.Element == "Water")        // normal->water  effective
+                case "Regular":
+                    if (opponentCard.Element == "Water")        // regular->water  effective
                         return 2;
-                    else if (opponentCard.Element == "Fire")    // fire->normal   not effective
+                    else if (opponentCard.Element == "Fire")    // fire->regular   not effective
                         return 0.5;
 
                     break;
                 case "Fire":
-                    if (opponentCard.Element == "Normal")       // fire->normal   effective
+                    if (opponentCard.Element == "Regular")       // fire->regular   effective
                         return 2;
                     else if (opponentCard.Element == "Water")   // water->fire    not effective
                         return 0.5;
@@ -41,7 +42,7 @@ namespace MTCG.Models
                 case "Water":
                     if (opponentCard.Element == "Fire")         // water->fire    effective
                         return 2;
-                    else if (opponentCard.Element == "Normal")  // normal->water  not effective
+                    else if (opponentCard.Element == "Regular")  // regular->water  not effective
                         return 0.5;
 
                     break;
@@ -50,7 +51,7 @@ namespace MTCG.Models
             return 1;
         }
 
-        public override bool isProtectedVsMonster(CardType opponentType)
+        public bool isProtectedVsMonster(string opponentType)
         {
             return false;
         }

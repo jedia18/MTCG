@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Xml.Linq;
 
 namespace MTCG
 {
@@ -31,33 +32,78 @@ namespace MTCG
             //information about the incoming request. 
             HttpSvrEventArgs e = (HttpSvrEventArgs)evt;
 
-            if (e.Path == "/users")                                         // The code checks if the path of the request is "/users".
+            switch (e.Path)
             {
-                UserController.AddUser(e, (NpgsqlConnection)_Cn);           // AddUser method to handle User
-            }
-            else if (e.Path == "/sessions")                                 // The code checks if the path of the request is "/sessions".
-            {
-                SessionController.Login(e, (NpgsqlConnection)_Cn);          // Login the user and make a token and assign it to the user
-            }
-            else if (e.Path == "/packages")                                 // The code checks if the path of the request is "/packages".
-            {
-                for (int j = 0; j < e.Headers.Length; j++)
-                {
-                    if (e.Headers[j].Value == "Basic admin-mtcgToken")
+                case "/users":
+                    UserController.AddUser(e, (NpgsqlConnection)_Cn);
+                    break;
+
+                case "/sessions":
+                    SessionController.Login(e, (NpgsqlConnection)_Cn);
+                    break;
+
+                case "/packages":
+                    for (int j = 0; j < e.Headers.Length; j++)
                     {
-                        PackageController.AddPackage(e, (NpgsqlConnection)_Cn);
+                        if (e.Headers[j].Value == "Basic admin-mtcgToken")
+                        {
+                            PackageController.AddPackage(e, (NpgsqlConnection)_Cn);
+                        }
                     }
-                }
+                    break;
             }
 
 
 
 
-            else
-            {
-                Console.WriteLine("Rejected message.");
-                e.Reply(400);
-            }
+
+            //if (e.Path == "/users")                                         // The code checks if the path of the request is "/users".
+            //{
+            //    UserController.AddUser(e, (NpgsqlConnection)_Cn);           // AddUser method to handle User
+            //}
+            //else if (e.Path == "/sessions")                                 // The code checks if the path of the request is "/sessions".
+            //{
+            //    SessionController.Login(e, (NpgsqlConnection)_Cn);          // Login the user and make a token and assign it to the user
+            //}
+            //else if (e.Path == "/packages")                                 // The code checks if the path of the request is "/packages".
+            //{
+            //    for (int j = 0; j < e.Headers.Length; j++)
+            //    {
+            //        if (e.Headers[j].Value == "Basic admin-mtcgToken")
+            //        {
+            //            PackageController.AddPackage(e, (NpgsqlConnection)_Cn);
+            //        }
+            //    }
+            //}
+            //else if (e.Path == "/packages")                                 // The code checks if the path of the request is "/packages".
+            //{
+            //    for (int j = 0; j < e.Headers.Length; j++)
+            //    {
+            //        if (e.Headers[j].Value == "Basic kienboec-mtcgToken")
+            //        {
+            //            // TODO
+            //        }
+            //    }
+            //}
+            //else if (e.Path == "/packages")                                 // The code checks if the path of the request is "/packages".
+            //{
+            //    for (int j = 0; j < e.Headers.Length; j++)
+            //    {
+            //        if (e.Headers[j].Value == "Basic kienboec-mtcgToken")
+            //        {
+            //            // TODO
+            //        }
+            //    }
+            //}
+
+
+
+
+            //else
+            //{
+            //    Console.WriteLine("Rejected message.");
+            //    e.Reply(400);
+            //}
 
             Console.WriteLine();
         }
