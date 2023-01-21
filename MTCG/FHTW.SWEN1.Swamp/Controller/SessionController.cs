@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MTCG.Controller
 {
@@ -13,7 +14,7 @@ namespace MTCG.Controller
     {
         //If the path is "/sessions" and the method is "POST", the code will check the user name and password with the username and password in Db and 
         //if they match, write a login successful in console and save a tocken for the user.  
-        public static void AddUser(object evt, NpgsqlConnection _Cn)
+        public static void Login(object evt, NpgsqlConnection _Cn)
         {
             HttpSvrEventArgs e = (HttpSvrEventArgs)evt;
 
@@ -21,12 +22,8 @@ namespace MTCG.Controller
             {
                 NpgsqlCommand cmd = _Cn.CreateCommand();
 
-                // create database command, insert messages into database
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, username VARCHAR(255) UNIQUE, password VARCHAR(255), coins INTEGER, wins INTEGER, defeats INTEGER, draws INTEGER, played INTEGER, Image VARCHAR(255), bio VARCHAR(255))";
-                cmd.ExecuteNonQuery();
-
-                // insert message into database
-                cmd.CommandText = "INSERT INTO users (username, password, coins) VALUES (@username, @password, 20) RETURNING id";
+                // To check if the provided username exists in the "users" table.
+                cmd.CommandText = "SELECT * FROM users WHERE username = @username";
 
                 var user = new Users();
                 JObject jObject = JObject.Parse(e.Payload);
@@ -35,41 +32,51 @@ namespace MTCG.Controller
                 var password = user.Password;
                 password = (string)jObject["Password"];
 
+                // make a hasched password from the password which user gives
+                PasswordHandler passwordhandler = new PasswordHandler();
+                string curlHashedPassword = passwordhandler.HashPassword(password);
+
                 IDataParameter p1 = cmd.CreateParameter();                      // make and bind parameter for username
                 p1.ParameterName = ":username";
                 p1.Value = username;
                 cmd.Parameters.Add(p1);
 
-                IDataParameter p2 = cmd.CreateParameter();                      // make and bind parameter for password                       
-                PasswordHandler passwordhandler = new PasswordHandler();        // make a hasched password from the password which user gives
-                string hashedpassword = passwordhandler.HashPassword(password);
-                p2.ParameterName = ":password";
-                p2.Value = hashedpassword;
-                cmd.Parameters.Add(p2);
+                // to see if the returned data reader has rows (meaning a user with the provided username exists)
+                NpgsqlDataReader reader = cmd.ExecuteReader();
 
-                try
+                if (reader.HasRows)
                 {
-                    cmd.ExecuteNonQuery();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("User with username: \"" + username + "\" is registerd!");
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-                catch (NpgsqlException ex)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: The username: \"" + username + "\" is already exist!");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    reader.Read();
+                    var hashedpassword = reader["password"].ToString();
 
-                    if (ex.ErrorCode.Equals(23505))
+                    // To see if the provided password matches the hashed password stored in the table for the given username.
+                    if (hashedpassword == curlHashedPassword)
                     {
-                        Console.WriteLine("Error: The username already exists.");
-                        e.Reply(400, "Error: The username already exists.");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("User with username: \"" + username + "\" is logged in!");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        e.Reply(200, "Successful login");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error: Incorrect password for user: \"" + username + "\"!");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        e.Reply(400, "Error: Incorrect password");
                     }
                 }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: User with username: \"" + username + "\" does not exist!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    e.Reply(400, "Error: User does not exist");
+                }
 
+                reader.Close();
                 cmd.Dispose();
             }
-
         }
+
     }
 }
