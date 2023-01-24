@@ -16,8 +16,12 @@ namespace MTCG
         // private members                                                                                          //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        /// <summary>TCP client.</summary>
-        private TcpClient _Client;
+        ///// <summary>TCP client.</summary>
+        //private TcpClient _Client;
+        public TcpClient _Client
+        {
+            get; private set;
+        }
 
 
 
@@ -84,14 +88,13 @@ namespace MTCG
                 //}
 
             }
-            
+
             //for (int j = 0; j < Headers.Length; j++)
             //{
             //    if (Headers[j].Value == "Basic admin-mtcgToken")
             //    {
             //        Console.WriteLine(Headers[j].Value);
             //    }
-                
             //}
         }
 

@@ -8,11 +8,15 @@ namespace MTCG.Models
 {
     public class SpellCard : Card
     {
+        public SpellCard() 
+        {
+            this.type = "Spell";
+        }
         public SpellCard(float damage, string element)
         {
-            this.damage = damage;
-            this.element = element;
-            this.type = "Spell";
+            this.Damage = damage;
+            this.Element = element;
+            this.Type = "Spell";
         }
 
         public double damageEffectivenessCalculation(Card opponentCard)
@@ -23,7 +27,7 @@ namespace MTCG.Models
                 return 1;
             }
 
-            switch (element)
+            switch (Element)
             {
                 case "Regular":
                     if (opponentCard.Element == "Water")        // regular->water  effective

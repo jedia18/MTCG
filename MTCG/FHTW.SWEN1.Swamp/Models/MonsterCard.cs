@@ -7,14 +7,7 @@ namespace MTCG.Models
 {
     public class MonsterCard : Card
     {
-        //public MonsterCard(string name, float damage, string element, CardType type)
-        //{
-        //    this.name = name;
-        //    this.damage = damage;
-        //    this.element = element;
-        //    this.type = type;
-        //}
-
+        public MonsterCard() { }   
         public MonsterCard(string id, string name, float damage, string element, string type)
         {
             this.Id = id;
@@ -31,7 +24,7 @@ namespace MTCG.Models
                 return 1;
             }
 
-            switch (element)
+            switch (Element)
             {
                 case "Regular":
                     if (opponentCard.Element == "Water")        // regular->water  effective
@@ -60,7 +53,7 @@ namespace MTCG.Models
 
         public bool isProtectedVsMonster(string opponentType)
         {
-            switch (type)
+            switch (Type)
             {
                 // Goblins are too afraid of Dragons to attack
                 case ("Dragon"):

@@ -33,8 +33,14 @@ namespace MTCG.Models
         public string Element { get; set; }        // Regular, Water, Fire
         public string Type { get; set; }           // Spell, Goblin, Dragon, Wizard, Ork, Knight, Kraken, Elf, Troll
 
-        //public abstract bool isProtectedVsMonster(CardType opponentType);
+        //public virtual bool IsProtectedVsMonster(Card opponentType)
+        //{
+        //    return false;
+        //}
 
-        //public abstract double damageEffectivenessCalculation(Card opponentCard);
+        //public virtual double damageEffectivenessCalculation(Card opponentCard)
+        //{
+        //    return 0;
+        //}
     }
 }
