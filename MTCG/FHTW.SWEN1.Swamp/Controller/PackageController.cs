@@ -16,12 +16,12 @@ namespace MTCG.Controller
 
             if (e.Method == "POST")
             {
-                NpgsqlCommand cmd = _Cn.CreateCommand();
+                NpgsqlCommand cmd1 = _Cn.CreateCommand();
 
                 // create database command, create table if it doesn't exist 
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS packages (card_id SERIAL PRIMARY KEY, id VARCHAR(255), name VARCHAR(255), damage FLOAT, element VARCHAR(255), type VARCHAR(255))";
-                cmd.ExecuteNonQuery();
-
+                cmd1.CommandText = "CREATE TABLE IF NOT EXISTS packages (card_id SERIAL PRIMARY KEY, id VARCHAR(255) UNIQUE, name VARCHAR(255), damage FLOAT, element VARCHAR(255), type VARCHAR(255))";
+                cmd1.ExecuteNonQuery();
+                cmd1.Dispose();
                 //Console.WriteLine(e.Payload);
 
                 JArray jArray = JArray.Parse(e.Payload);
@@ -32,7 +32,6 @@ namespace MTCG.Controller
                 //    Console.WriteLine((string)jObject["Name"]);
                 //}
 
-
                 //int k;
                 //for (k = 0; k < jArray.Count; k++)
                 //{
@@ -41,12 +40,12 @@ namespace MTCG.Controller
                 //    Console.WriteLine((string)jObject["Name"]);
                 //}
 
-                //int i = 0;
-                //for (int i = 0; i < jArray.Count; i++)
-                foreach (JObject jObject in jArray)
+                //foreach (JObject jObject in jArray)
+                for (int i = 0; i < jArray.Count; i++)
                 {
-                    //JObject jObject = JObject.Parse(jArray);
-                    //var jObject = (JObject)jArray[i];
+                    NpgsqlCommand cmd = _Cn.CreateCommand();                  // It has to make a new command heir. If not you recieve the first
+                    //JObject jObject = JObject.Parse(jArray);                // item of data in curl 5 times in packages table in postgresql 
+                    var jObject = (JObject)jArray[i];                         // instead of recieving each item of data in culd 1 time in this table
                     //var id = (string)jObject["Id"];
                     //var name = (string)jObject["Name"];
                     var damage = (float)jObject["Damage"];
@@ -107,7 +106,8 @@ namespace MTCG.Controller
                     p5.Value = cardType;
                     cmd.Parameters.Add(p5);
                     //cmd.ExecuteNonQuery();
-                    //Console.WriteLine(p1.Value);
+                    Console.WriteLine(p1.Value);
+                    //Console.WriteLine(p2.Value);
 
                     try
                     {
@@ -128,11 +128,11 @@ namespace MTCG.Controller
                             e.Reply(400, "Error: The username already exists.");
                         }
                     }
-                    //i += 3;
+                    cmd.Dispose();
                 }
 
                 e.Reply(200, "Packages inserted successfully");
-                cmd.Dispose();
+                //cmd.Dispose();
             }
         }
 

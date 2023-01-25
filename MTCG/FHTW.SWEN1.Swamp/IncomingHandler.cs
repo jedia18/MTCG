@@ -51,6 +51,11 @@ namespace MTCG
                         }
                     }
                     break;
+
+                default:
+                    Console.WriteLine("Rejected message.");
+                    e.Reply(400);
+                    break;
             }
 
 
