@@ -5,8 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace MTCG
 {
-    internal class StringHandler
+    public class StringHandler
     {
+        // This method recieve a string like "WaterGoblin" and divide it to two strings "Water" and "Goblin"
         public string[] DivideString(string input)
         {
             Regex regex = new Regex(@"([A-Z][a-z]*)([A-Z][a-z]*)");
@@ -25,6 +26,18 @@ namespace MTCG
             }
         }
 
-    }
+        // This method recieve a string like "Basic admin-mtcgToken" and remove the "Basic " and return "admin-mtcgToken"
+        public string TokenDistinguisher(string input)
+        {
+            string token = input.Replace("Basic ", "");
+            return (token);
+        }
 
+        // This method recieve a string like "Basic admin-mtcgToken" and remove the "Basic " and "_mtcgToken" and return "admin"
+        public string UserDistinguisher (string input)
+        {
+            string variablePart = input.Replace("Basic ", "").Replace("-mtcgToken", "");
+            return (variablePart);
+        }
+    }
 }

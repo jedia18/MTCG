@@ -114,7 +114,7 @@ namespace MTCG
         /// <summary>Get the HTTP method.</summary>
         public virtual string Method
         {
-            get; protected set;
+            get;set;
         }
 
 
@@ -135,8 +135,10 @@ namespace MTCG
         /// <summary>Gets the HTTP payload.</summary>
         public string Payload
         {
-            get; private set;
+            get; set;
         }
+
+        public int Status { get; set; }
 
 
 
@@ -149,9 +151,10 @@ namespace MTCG
         /// <param name="payload">Payload.</param>
         public virtual void Reply(int status, string payload = null, string value = null)
         {
+            Status = status;
             string data;
 
-            switch (status)
+            switch (Status)
             {                                                                   // create response status string from code
                 case 200:
                     data = "HTTP/1.1 200 OK\n";

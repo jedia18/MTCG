@@ -9,7 +9,7 @@ using MTCG.Authentication;
 
 namespace MTCG.Controller
 {
-    internal class UserController
+    public class UserController
     {
         //If the path is "/users" and the method is "POST", the code will creat the users table in Db and insert some values into the
         //database, with the values taken from the payload of the request. 
@@ -28,13 +28,13 @@ namespace MTCG.Controller
                 // insert message into database
                 cmd.CommandText = "INSERT INTO users (username, password, coins) VALUES (@username, @password, 20) RETURNING id";
 
-                var user = new Users();
+                Users user = new Users();
                 JObject jObject = JObject.Parse(e.Payload);
-                var username = user.UserName;
-                username = (string)jObject["Username"];
-                var password = user.Password;
-                password = (string)jObject["Password"];
-                    
+                _ = user.UserName;
+                string username = (string)jObject["Username"];
+                _ = user.Password;
+                string password = (string)jObject["Password"];
+
                 IDataParameter p1 = cmd.CreateParameter();                      // make and bind parameter for username
                 p1.ParameterName = ":username"; 
                 p1.Value = username;

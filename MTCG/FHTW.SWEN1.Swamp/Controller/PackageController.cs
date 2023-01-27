@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MTCG.Controller
 {
-    internal class PackageController
+    public class PackageController
     {
         public static void AddPackage(object evt, NpgsqlConnection _Cn)
         {
@@ -19,7 +19,7 @@ namespace MTCG.Controller
                 NpgsqlCommand cmd1 = _Cn.CreateCommand();
 
                 // create database command, create table if it doesn't exist 
-                cmd1.CommandText = "CREATE TABLE IF NOT EXISTS packages (card_id SERIAL PRIMARY KEY, id VARCHAR(255) UNIQUE, name VARCHAR(255), damage FLOAT, element VARCHAR(255), type VARCHAR(255))";
+                cmd1.CommandText = "CREATE TABLE IF NOT EXISTS packages (card_id SERIAL PRIMARY KEY, id VARCHAR(255) UNIQUE, name VARCHAR(255), damage FLOAT, element VARCHAR(255), type VARCHAR(255), username VARCHAR(255))";
                 cmd1.ExecuteNonQuery();
                 cmd1.Dispose();
                 //Console.WriteLine(e.Payload);
@@ -95,7 +95,7 @@ namespace MTCG.Controller
                     p3.Value = cardDamage;
                     cmd.Parameters.Add(p3);
 
-                    
+
                     IDataParameter p4 = cmd.CreateParameter();
                     p4.ParameterName = ":element";
                     p4.Value = cardElement;
@@ -106,8 +106,7 @@ namespace MTCG.Controller
                     p5.Value = cardType;
                     cmd.Parameters.Add(p5);
                     //cmd.ExecuteNonQuery();
-                    Console.WriteLine(p1.Value);
-                    //Console.WriteLine(p2.Value);
+
 
                     try
                     {
@@ -132,9 +131,7 @@ namespace MTCG.Controller
                 }
 
                 e.Reply(200, "Packages inserted successfully");
-                //cmd.Dispose();
             }
         }
-
     }
 }

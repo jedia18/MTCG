@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MTCG.Authentication
 {
-    internal class PasswordHandler
+    public class PasswordHandler
     {
         public string HashPassword(string password)
         {
