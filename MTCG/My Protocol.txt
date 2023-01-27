@@ -1,0 +1,47 @@
+Design/lessons learned
+
+-	The project consists of a main section and a section related to unit tests.
+
+	Main folder:
+	HttpHeader, HttpSvr, HttpSvrEventArgs Classes which are related to the server, communication between server and client, and receiving data from the client with different HTTP verbs.
+	The Program Class is where the main method is located, the server is run, and the connection with the IncomingHandler Class is established. In the IncomingHandler Class, a 
+	connection is established with the database, and various functions implemented in the Controller folder are called using a switch on the Path.
+	
+	Controller folder:
+	In this folder, various Classes are consisting of various methods that perform various operations (for example, creating a table, inserting data in the table, etc.) in 
+	the database based on the data they receive from the relevant CURL command.
+	
+	Authentication folder:
+	which is related to the validation of users.
+	
+	Models folder:
+	In this folder, users and cards are defined and implemented.
+
+	At first, I didn't understand the project very well and I didn't know where to start. That's why I started the wrong way and instead of implementing a server listening to 
+	incoming clients, I started from Web API and lost a lot of time during the Christmas holidays because of this. Although I did not achieve significant success in this direction 
+	either. Finally, after talking with Alex Berg (one of my colleagues) about that, I realized that I had to change my path. Although it was very late, I was able to implement a part 
+	of the project in a short time. I have used part of the work I had already done. In this way, I learned the following:
+	
+	Learning how to work with Visual Studio and its different parts
+	Different concepts related to C#
+	Object-oriented programing 
+	Unit tests
+	Project structuring
+	PostgreSQL Database
+	Communicate with the database
+
+ 	 
+
+unit test design
+
+-	To implement unit tests, I decided to implement at least one unit test for almost all available methods. In this regard, more unit tests have been implemented for some methods 
+	that are more complex so that more cases can be examined and tested.
+	
+time spent
+
+-	I spent a lot of time on this project. About seven days during the Christmas holidays and about four days after the holidays in total. I have been working on this project for
+ 	an average of eight hours every day. In total, I have spent more than 90 hours on this project.
+
+link to git
+
+-	https://github.com/jedia18/MTCG
