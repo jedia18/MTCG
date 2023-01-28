@@ -67,12 +67,11 @@ namespace MTCG.Controller
                     }
                 }
 
-                cmd = (NpgsqlCommand)_Cn.CreateCommand();     // The code then retrieves the auto-incremented ID
-                cmd.CommandText = "SELECT CURRVAL('users_id_seq')";         // read autoincremented message ID
-                int id = Convert.ToInt32(cmd.ExecuteScalar());              // put ID into variable
+                cmd = (NpgsqlCommand)_Cn.CreateCommand();                      // The code then retrieves the auto-incremented ID
+                cmd.CommandText = "SELECT CURRVAL('users_id_seq')";            // read autoincremented message ID
+                int id = Convert.ToInt32(cmd.ExecuteScalar());                 // put ID into variable
                 cmd.Dispose();
-                //Console.WriteLine("Saved message: \"{0}\" as {1}", e.Payload.Replace("\n", "").Replace("\r", ""), id);
-                e.Reply(200, id.ToString());                                // create reply
+                e.Reply(200, id.ToString());                                   // create reply
 
                 cmd.Dispose();
             }

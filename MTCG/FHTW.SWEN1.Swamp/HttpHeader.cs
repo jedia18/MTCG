@@ -18,7 +18,6 @@ namespace MTCG
             Value = value;
         }
 
-
         /// <summary>Creates a new instance of this class.</summary>
         /// <param name="header">Header text.</param>
         public HttpHeader(string header)
@@ -28,10 +27,7 @@ namespace MTCG
             {
                 int n = header.IndexOf(':');
                 Name = header.Substring(0, n).Trim();
-                //Console.WriteLine("**************" + Name + "******************");
                 Value = header.Substring(n + 1).Trim();
-                //Console.WriteLine("--------------" + Value + "------------------");
-
             }
             catch (Exception) { }
         }
@@ -39,13 +35,11 @@ namespace MTCG
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // public properties                                                                                        //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         /// <summary>Gets the header name.</summary>
         public string Name
         {
             get; private set;
         }
-
 
         /// <summary>Gets the header value.</summary>
         public string Value

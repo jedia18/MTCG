@@ -19,7 +19,7 @@ Design/lessons learned
 
 	At first, I didn't understand the project very well and I didn't know where to start. That's why I started the wrong way and instead of implementing a server listening to 
 	incoming clients, I started from Web API and lost a lot of time during the Christmas holidays because of this. Although I did not achieve significant success in this direction 
-	either. Finally, after talking with Alex Berg (one of my colleagues) about that, I realized that I had to change my path. Although it was very late, I was able to implement a part 
+	either. Finally, after talking with one of my colleagues about that, I realized that I had to change my path. Although it was very late, I was able to implement a part 
 	of the project in a short time. I have used part of the work I had already done. In this way, I learned the following:
 	
 	Learning how to work with Visual Studio and its different parts
@@ -30,7 +30,8 @@ Design/lessons learned
 	PostgreSQL Database
 	Communicate with the database
 
- 	 
+	Another lesson I learned from this project was that I should have drawn an outline of the entire project from scratch before doing anything. Then I start from a point and advance 
+	the project by doing small projects. But due to my inexperience, I was really confused at the beginning and I didn't know where to start or what to do.
 
 unit test design
 

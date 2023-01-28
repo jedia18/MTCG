@@ -7,7 +7,7 @@ namespace MTCG.Models
 {
     public class MonsterCard : Card
     {
-        public MonsterCard() { }   
+        public MonsterCard() { }
         public MonsterCard(string id, string name, float damage, string element, string type)
         {
             this.Id = id;
@@ -27,23 +27,23 @@ namespace MTCG.Models
             switch (Element)
             {
                 case "Regular":
-                    if (opponentCard.Element == "Water")        // regular->water  effective
+                    if (opponentCard.Element == "Water")            // regular->water  effective
                         return 2;
-                    else if (opponentCard.Element == "Fire")    // fire->regular   not effective
+                    else if (opponentCard.Element == "Fire")        // fire->regular   not effective
                         return 0.5;
                     break;
 
                 case "Fire":
-                    if (opponentCard.Element == "Regular")       // fire->regular   effective
+                    if (opponentCard.Element == "Regular")          // fire->regular   effective
                         return 2;
-                    else if (opponentCard.Element == "Water")   // water->fire    not effective
+                    else if (opponentCard.Element == "Water")       // water->fire    not effective
                         return 0.5;
                     break;
 
                 case "Water":
-                    if (opponentCard.Element == "Fire")         // water->fire    effective
+                    if (opponentCard.Element == "Fire")             // water->fire    effective
                         return 2;
-                    else if (opponentCard.Element == "Regular")  // regular->water  not effective
+                    else if (opponentCard.Element == "Regular")     // regular->water  not effective
                         return 0.5;
                     break;
             }

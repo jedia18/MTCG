@@ -23,8 +23,6 @@ namespace MTCG
             get; private set;
         }
 
-
-
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // constructors                                                                                             //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +30,6 @@ namespace MTCG
         /// <summary>Creates a new instance of this class.</summary>
         public HttpSvrEventArgs()
         { }
-
 
         /// <summary>Creates a new instance of this class.</summary>
         /// <param name="tcp">HTTP message received from TCP listener.</param>
@@ -60,9 +57,7 @@ namespace MTCG
                 {
                     string[] inq = lines[0].Split(" ");
                     Method = inq[0];
-                    //Console.WriteLine("************" + Method + "****************");
                     Path = inq[1];
-                    //Console.WriteLine("--------------" + Path + "----------------");
                 }
                 else if (inheaders)
                 {
@@ -73,7 +68,6 @@ namespace MTCG
                     else
                     {
                         headers.Add(new HttpHeader(lines[i]));
-                        //Console.WriteLine("§§§§§§§§§§" + lines[i] + "§§§§§§§§§§§§§");
                     }
                 }
                 else
@@ -82,13 +76,7 @@ namespace MTCG
                 }
 
                 Headers = headers.ToArray();
-                //for (int j = 0; j < Headers.Length; j++)
-                //{
-                //    Console.WriteLine(Headers[j]);
-                //}
-
             }
-
             //for (int j = 0; j < Headers.Length; j++)
             //{
             //    if (Headers[j].Value == "Basic admin-mtcgToken")
@@ -97,8 +85,6 @@ namespace MTCG
             //    }
             //}
         }
-
-
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // public properties                                                                                        //

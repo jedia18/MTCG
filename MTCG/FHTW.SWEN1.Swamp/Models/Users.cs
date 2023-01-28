@@ -18,7 +18,5 @@ namespace MTCG.Models
         public int Played { get; set; }
         public string Image { get; set; }
         public string Bio { get; set; }
-        //public List<Card> Stack { get; private set; }
-        //public List<Card> Deck { get; private set; }
     }
 }

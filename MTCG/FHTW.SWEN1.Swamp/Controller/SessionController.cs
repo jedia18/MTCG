@@ -54,7 +54,7 @@ namespace MTCG.Controller
                     // To see if the provided password matches the hashed password stored in the table for the given username.
                     if (hashedpassword == curlHashedPassword)
                     {
-                        var token = "Basic " + username + "-mtcgToken";         // Generate a unique token for the username
+                        var token = username + "-mtcgToken";         // Generate a unique token for the username
 
                         // Add the token to the user in the database
                         cmd.CommandText = "UPDATE users SET token = @token WHERE username = @username";
@@ -66,12 +66,8 @@ namespace MTCG.Controller
 
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("User with username: \"" + username + "\" is logged in!");
-                        Console.WriteLine("The token for the " + username + " is " + token);
                         Console.ForegroundColor = ConsoleColor.White;
-
-
-                        // Send the token back to the client
-                        e.Reply(200, "Successful login", token);
+                        e.Reply(200, "Successful login", token);                // Send the token back to the client
                     }
                     else
                     {

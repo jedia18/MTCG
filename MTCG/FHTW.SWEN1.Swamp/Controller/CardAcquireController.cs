@@ -44,6 +44,7 @@ namespace MTCG.Controller
                 }
             }
 
+            // specifies the first 5 cards which the username is null to the user by running every curl
             using (var cmd = new NpgsqlCommand("UPDATE packages SET username = @username FROM (SELECT * FROM packages WHERE username IS NULL LIMIT 5) as subquery WHERE subquery.id = packages.id;", _Cn))
             {
                 cmd.Parameters.AddWithValue("@username", username);

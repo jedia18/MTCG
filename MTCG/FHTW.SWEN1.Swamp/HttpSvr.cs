@@ -9,42 +9,34 @@ namespace MTCG
     /// <param name="e">Event arguments that contain the event data.</param>
     public delegate void IncomingEventHandler(object sender, HttpSvrEventArgs e);
 
-
-
     /// <summary>This class implements a great HTTP server.</summary>
     public sealed class HttpSvr
     {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // private members                                                                                          //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        
         /// <summary>TCP listener instance.</summary>
         private TcpListener _Listener;
-
-
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // public events                                                                                            //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        
         /// <summary>Occurs when a HTTP message is received.</summary>
         public event IncomingEventHandler Incoming;
 
-
-
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // public properties                                                                                           //
+        // public properties                                                                                        //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        
         /// <summary>Active flag. Determines if the server is still running.</summary>
         public bool Active { get; set; }
-
-
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // public methods                                                                                           //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        
         /// <summary>Runs the server.</summary>
         public void Run()
         {

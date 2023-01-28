@@ -22,33 +22,14 @@ namespace MTCG.Controller
                 cmd1.CommandText = "CREATE TABLE IF NOT EXISTS packages (card_id SERIAL PRIMARY KEY, id VARCHAR(255) UNIQUE, name VARCHAR(255), damage FLOAT, element VARCHAR(255), type VARCHAR(255), username VARCHAR(255))";
                 cmd1.ExecuteNonQuery();
                 cmd1.Dispose();
-                //Console.WriteLine(e.Payload);
 
                 JArray jArray = JArray.Parse(e.Payload);
 
-                //foreach (JObject jObject in jArray)
-                //{
-                //    Console.WriteLine((string)jObject["Id"]);
-                //    Console.WriteLine((string)jObject["Name"]);
-                //}
-
-                //int k;
-                //for (k = 0; k < jArray.Count; k++)
-                //{
-                //    var jObject = (JObject)jArray[k];
-                //    Console.WriteLine((string)jObject["Id"]);
-                //    Console.WriteLine((string)jObject["Name"]);
-                //}
-
-                //foreach (JObject jObject in jArray)
                 for (int i = 0; i < jArray.Count; i++)
                 {
                     NpgsqlCommand cmd = _Cn.CreateCommand();                  // It has to make a new command heir. If not you recieve the first
-                    //JObject jObject = JObject.Parse(jArray);                // item of data in curl 5 times in packages table in postgresql 
-                    var jObject = (JObject)jArray[i];                         // instead of recieving each item of data in culd 1 time in this table
-                    //var id = (string)jObject["Id"];
-                    //var name = (string)jObject["Name"];
-                    var damage = (float)jObject["Damage"];
+                    var jObject = (JObject)jArray[i];                         // item of data in curl 5 times in packages table in postgresql 
+                    var damage = (float)jObject["Damage"];                    // instead of recieving each item of data in culd 1 time in this table
 
                     cmd.CommandText = "INSERT INTO packages (id, name, damage, element, type) VALUES (@id, @name, @damage, @element, @type)";
 
@@ -83,7 +64,6 @@ namespace MTCG.Controller
                     p1.ParameterName = ":id";
                     p1.Value = cardId;                                        // Put value of this variable in the p1.Value to send for Db
                     cmd.Parameters.Add(p1);
-                    //Console.WriteLine("id for index " + i + " is : " + cmd.Parameters[i].Value);
 
                     IDataParameter p2 = cmd.CreateParameter();
                     p2.ParameterName = ":name";
@@ -105,8 +85,6 @@ namespace MTCG.Controller
                     p5.ParameterName = ":type";
                     p5.Value = cardType;
                     cmd.Parameters.Add(p5);
-                    //cmd.ExecuteNonQuery();
-
 
                     try
                     {

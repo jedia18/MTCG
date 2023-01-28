@@ -23,8 +23,7 @@ namespace MTCG
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nConnected with Database!\n");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Please run the CURL!");
-
+            Console.WriteLine("Please run the CURL!\n");
         }
 
         /// <summary>Processes an incoming HTTP request.</summary>
@@ -75,21 +74,19 @@ namespace MTCG
                     }
                     break;
 
-                case "/cards":
-                    for (int j = 0; j < e.Headers.Length; j++)
-                    {
-                        if (token.TokenDistinguisher(e.Headers[j].Value) == "kienboec-mtcgToken")
-                        {
-                            Console.WriteLine("Hello kienobec");
-                            e.Reply(400);
-                        }
-                        else if (token.TokenDistinguisher(e.Headers[j].Value) == "altenhof-mtcgToken")
-                        {
-                            Console.WriteLine("Hello altenhof");
-                            e.Reply(400);
-                        }
-                    }
-                    break;
+                //case "/cards":
+                //    for (int j = 0; j < e.Headers.Length; j++)
+                //    {
+                //        if (token.TokenDistinguisher(e.Headers[j].Value) == "kienboec-mtcgToken")
+                //        {
+                //            // TODO
+                //        }
+                //        else if (token.TokenDistinguisher(e.Headers[j].Value) == "altenhof-mtcgToken")
+                //        {
+                //            // TODO
+                //        }
+                //    }
+                //    break;
 
                 default:
                     Console.WriteLine("Rejected message.");
@@ -104,6 +101,3 @@ namespace MTCG
         }
     }
 }
-
-
- 
