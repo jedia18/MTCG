@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace MTCG
 {
-    internal class IncomingHandler
+    public class IncomingHandler
     {
         /// <summary>Database connection.</summary>
         public static IDbConnection _Cn;

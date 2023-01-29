@@ -28,8 +28,8 @@ namespace MTCG
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>Creates a new instance of this class.</summary>
-        public HttpSvrEventArgs()
-        { }
+        //public HttpSvrEventArgs()
+        //{ }
 
         /// <summary>Creates a new instance of this class.</summary>
         /// <param name="tcp">HTTP message received from TCP listener.</param>

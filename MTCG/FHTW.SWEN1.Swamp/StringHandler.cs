@@ -18,7 +18,6 @@ namespace MTCG
                 string secondPart = match.Groups[2].Value;
 
                 return new string[] { firstPart, secondPart };
-
             }
             else
             {
