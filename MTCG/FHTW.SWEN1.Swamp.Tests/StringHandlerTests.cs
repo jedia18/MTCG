@@ -26,19 +26,32 @@ namespace MTCG.Tests
             Assert.That(result[1], Is.EqualTo("World"));
         }
 
+        [Test]
+        public void DivideString_OnPartStrign()
+        {
+            // Arrange
+            string input = "World";
+
+            // Act
+            string[] result = str.DivideString(input);
+
+            // Assert
+            Assert.That(result.Length, Is.EqualTo(1));
+            Assert.That(result[0], Is.EqualTo("World"));
+        }
+
         // test the TokenDistinguisher method
         [Test]
         public void TokenDistinguisher_Removes_Basic_Prefix()
         {
             // Arrange
             string input = "Basic kienboec-mtcgToken";
-            string expected = "kienboec-mtcgToken";
 
             // Act
             string actual = str.TokenDistinguisher(input);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(actual, Is.EqualTo("kienboec-mtcgToken"));
         }
 
         // test the TokenDistinguisher method
@@ -47,13 +60,12 @@ namespace MTCG.Tests
         {
             // Arrange
             string input = "Basic kienboec-mtcgToken";
-            string expected = "kienboec";
 
             // Act
             string actual = str.UserDistinguisher(input);
 
             // Assert
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(actual, Is.EqualTo("kienboec"));
         }
 
 

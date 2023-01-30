@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using MTCG.Authentication;
+using System.Reflection.Metadata;
+using System.Linq;
+using System.Security.Cryptography;
 
 namespace MTCG.Controller
 {
@@ -34,6 +37,8 @@ namespace MTCG.Controller
                 string username = (string)jObject["Username"];
                 _ = user.Password;
                 string password = (string)jObject["Password"];
+
+
 
                 IDataParameter p1 = cmd.CreateParameter();                      // make and bind parameter for username
                 p1.ParameterName = ":username"; 

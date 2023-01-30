@@ -41,7 +41,28 @@ namespace MTCG.Tests
 
             Assert.That(args.Method, Is.EqualTo("POST"));
             Assert.That(args.Path, Is.EqualTo("/users"));
+
+        }
+
+
+        [Test]
+        public void TestEventArgsHeader()
+        {
+            HttpSvrEventArgs args = new HttpSvrEventArgs("POST /users HTTP/1.1\r\nHost: localhost:10001\r\nUser-Agent: curl/7.83.1\r\nAccept: */*\r\nContent-Type: text/plain\r\nContent-Length: 0", null);
+
             Assert.That(args.Headers[0].Value, Is.EqualTo("localhost:10001"));
+            Assert.That(args.Headers[1].Value, Is.EqualTo("curl/7.83.1"));
+            Assert.That(args.Headers[2].Value, Is.EqualTo("*/*"));
+            Assert.That(args.Headers[3].Value, Is.EqualTo("text/plain"));
+            Assert.That(args.Headers[4].Value, Is.EqualTo("0"));
+        }
+
+        [Test]
+        public void TestEventArgsPayload()
+        {
+            HttpSvrEventArgs args = new HttpSvrEventArgs("POST /users HTTP/1.1\r\nHost: localhost:10001\r\nUser-Agent: curl/7.83.1\r\nAccept: */*\r\nContent-Type: text/plain\r\nContent-Length: 41\r\n\r\n{\"Username\":\"kienboec\", \"Password\":\"daniel\"}", null);
+
+            Assert.That(args.Payload, Is.EqualTo("{\"Username\":\"kienboec\", \"Password\":\"daniel\"}\r\n"));
         }
 
 

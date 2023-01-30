@@ -56,7 +56,11 @@ namespace MTCG.Models
 
         public bool isProtectedVsMonster(string opponentType)
         {
-            return false;
+            if (opponentType != "Spell")
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

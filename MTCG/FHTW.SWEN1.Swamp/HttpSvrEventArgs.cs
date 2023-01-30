@@ -72,18 +72,19 @@ namespace MTCG
                 }
                 else
                 {
-                    Payload += lines[i] + "\r\n";
+                    Payload += lines[i] + "\r\n";                       // It gives the data in -d part of the curl
                 }
 
                 Headers = headers.ToArray();
             }
             //for (int j = 0; j < Headers.Length; j++)
             //{
-            //    if (Headers[j].Value == "Basic admin-mtcgToken")
-            //    {
             //        Console.WriteLine(Headers[j].Value);
-            //    }
             //}
+        }
+
+        public HttpSvrEventArgs()
+        {
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////

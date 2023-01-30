@@ -16,6 +16,7 @@ namespace MTCG.Tests
 
             PasswordHandler hashedPassword = new PasswordHandler();
             string actualHash = hashedPassword.HashPassword(password);
+
             Assert.That(actualHash, Is.EqualTo(expectedHash));
         }
     }
